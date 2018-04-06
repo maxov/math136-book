@@ -278,16 +278,22 @@ Via Rice's theorem, we showed that $K \leq_m I$ or $K \leq_m \overline{I}$. But 
 \end{proof}
 
 Here are several examples of sets we now know to be $\Sigma_1$-complete:
-\begin{enumerate}
+\begin{itemize}
     \item $I(e) \iff \varphi_e(0) = 0$
     \item $I(e) \iff \exists x \ x \text{ even} \land \varphi_e(x) \downarrow$
     \item $I(e) \iff \varphi_e(0) = 0 \land \exists y \ \varphi_e(y) \text{ even}$
-\end{enumerate}
+\end{itemize}
 
 The index set $\text{Tot}(e) \iff \left(\varphi_e^{(1)} \text{ total}\right)$ has the property that all $\Sigma_1$ sets reduce to it, but it is not $\Sigma_1$-complete, as it is too hard to be in $\Sigma_1$. 
 
 \section{Characterizing $\Sigma_1$ Index Sets}
 We have already shown that $\Sigma_1$ index sets are $\Sigma_1$-complete by \Cref{index-set-complete}. In this section, we aim for a much stronger characterization of the $\Sigma_1$ index sets that reveals a surprising structure that respects the natural order of functions. We will also use similar ideas later on when discussing the Recursion theorems.
+
+Some examples of index sets that fall under this characterization are:
+\begin{itemize}
+    \item $I = \{ a \mid \varphi_a(0) = 5 \}$
+    \item $I = \{ a \mid \exists x \in \text{dom}(\varphi_a) \colon \varphi_a(x) \text{ is a perfect square} \}$
+\end{itemize}
 
 Our definition of partial functions from $\mathbb{N} \rightarrow \mathbb{N}$ as sets admits a partial order defined in terms of $\subseteq$, or function extension. The empty function $\varnothing$ is a subset of all functions, and serves as a unique `least element' of this order. As a basis for all partial recursive functions, we first examine finite functions, or functions defined on a finite subset of $\mathbb{N}$.
 \begin{definition}
@@ -301,7 +307,7 @@ This definition essentially describes graphs of finite functions, encoded as seq
 If $\text{Fn}(b)$, then $f_b$ is the function that $b$ codes. In other words, $a \in \text{dom}(f_b)$ if and only if $\exists k \leq \text{lh}(b) \ ((b)_k)_1 = a$; and for such $a$, $f_b(a) = c$ if and only if  $\exists k \leq \text{lh}(b) \ ((b)_k)_1 = a \land ((b)_k)_2 = c$.
 \end{definition}
 This coding of finite functions by natural numbers admits an effective way to convert codes to an index of the equivalent partial 1-ary function.
-\begin{lemma}
+\begin{lemma}\label{finite-function-index}
 There is a total recursive function $t$ such that for all $b$, $\text{Fn}(b) \implies \varphi_{t(b)}^{(1)} = f_b$, and $\lnot \text{Fn}(b) \implies \varphi_{t(b)}^{(1)} = \varnothing$.
 \end{lemma}
 \begin{proof}
@@ -313,7 +319,44 @@ Define \[
 \]
 $g$ is partial recursive, and by S-m-n we produce the required $t$.
 \end{proof}
-Note that there is no partial recursive function that performs the inverse, i.e. $h$ such that $f_{h(e)} = \varphi_e^{1}$, defined only on e for which $\text{dom}(\varphi_e^{(1)})$ is finite.
+Note that there is no partial recursive function that performs the inverse, i.e. any $h$ such that $f_{h(e)} = \varphi_e^{1}$, defined only on e for which $\text{dom}(\varphi_e^{(1)})$ is finite, cannot be recursive.
+
+Now that we have the basis of finite functions, we build up to our main characterization theorem, the Rice-Shapiro theorem, through some `limiting lemmas' that give necessary conditions on $\Sigma_1$-index sets. These lemmas show that the structure of such index sets is closely related to the partial order of partial functions discussed earlier in this section.
+
+As we will talk about index sets in terms of partial functions they contain, recall that for an index set $I \subseteq \mathbb{N}$, we define $\mathscr{F}_I \subseteq \mathscr{C} = \{ \varphi_a \mid a \in I \}$, its interpretation as a set of partial functions. $\mathscr{F}_I$ is well-defined because $I$ is an index set.
+
+\begin{lemma}\label{index-upper-set}
+Let $I$ be a $\Sigma_1$ index set. Let $f \in \mathscr{F}_I$ and $f \subseteq g$ for partial recursive $g$. Then $g \in \mathscr{F}_I$.
+\end{lemma}
+\begin{proof}
+This was an exam question. Should fill in the details?
+\end{proof}
+
+\Cref{index-upper-set} by itself gives us a useful enough necessary condition to eliminate some index sets from being $\Sigma_1$. For example, consider \[I = \{ a \mid \text{ran}(\varphi_a) \text{ has no perfect square} \}\] This set is an index set as it is invariant of the index of $\varphi_a$, but it is not $\Sigma_1$ as it does not obey the condition required by \Cref{index-upper-set} (consider that $\varnothing \subseteq f(x) = x^2$, yet $\varnothing \in \mathscr{F}_I$ and $f$ is not).
+
+\begin{lemma}\label{index-finite-subfunction}
+Let $I$ be a $\Sigma_1$ index set, and let partial recursive $g \in \mathscr{F}_I$. Then there is a finite function $h$ such that $h \subseteq g$ and $h \in \mathscr{F}_I$.
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}[\textit{Rice-Shapiro}]
+Let $I$ be an index set. Then $I$ is $\Sigma_1$ if and only if there is a $\Sigma_1$ set of indices of finite functions $A \subset \{ b \in \mathbb{N} \colon \text{Fn}(b) \}$ such that for all $a \in \mathbb{N}$, $I(a) \iff \exists b \colon b \in A \land f_b \subseteq \varphi_a$.
+\end{theorem}
+\begin{proof}
+We begin with the backward direction. Assume $A$ is a set that follows the required conditions. Then $I$ is defined as the predicate $\exists b \colon b \in A \land f_b \subseteq \varphi_a$, which is $\Sigma_1$. This is because $f_b \subseteq \varphi_a^{(1)}$ is a $\Sigma_1$ predicate of $a$ and $b$.
+
+Now assume $I$ is a $\Sigma_1$ index set. We use $t$ as established in in \Cref{finite-function-index}. Then define \[
+    A(b) \iff \text{Fn}(b) \land t(b) \in I
+\]
+A is $\Sigma_1$. Now we show both directions of $I(a) \iff \exists b \colon b \in A \land f_b \subseteq \varphi_a$:
+\begin{itemize}
+    \item For the forward direction, let $a \in I$. Then by \Cref{index-finite-subfunction}, there is a finite function index $b$ where $f_b \subseteq \varphi_a$ and $t(b) \in I$. That index must by definition be in $A$.
+    \item For the backward direction, let $a \in \mathbb{N}$ be such that there is an index $b$ such that $b \in A$ and $f_b \subseteq \varphi_a$. Then $t(b) \in I$, so by \Cref{index-upper-set} so must $a \in I$.
+\end{itemize}s
+\end{proof}
+
 \section{Recursively Enumerable Sets}
 \section{Simple Sets}
 \section{Hypersimple Sets}
