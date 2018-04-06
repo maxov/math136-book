@@ -1,0 +1,38 @@
+\documentclass[oneside]{book}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{graphicx}
+% So that floating figures work correctly
+\usepackage{float}
+
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+\title{Math 136: Incompleteness and Undecidability}
+\frontmatter
+\maketitle
+\tableofcontents
+\mainmatter
+\chapter{Introduction}
+\input{chap1.tex}
+\chapter{Computability and Decidability}
+\input{chap2.tex}
+\chapter{Classifying Undecidable Sets}
+\input{chap3.tex}
+\chapter{The Recursion Theorems}
+\input{chap4.tex}
+\chapter{Formal Languages}
+\end{document}

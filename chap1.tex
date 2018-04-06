@@ -1,0 +1,31 @@
+\section{Outline of Math 136}
+\section{Conventions and Notation}
+We define the natural numbers as starting at one: \[
+    \mathbb{N} = \{ 0, 1, 2, \ldots \}
+\]
+And we define $\mathbb{N}_1 = \mathbb{N} \setminus \{ 0 \}$, the natural numbers excluding zero when we need them.
+
+For this course, it is especially important to discuss our definition of functions. We define functions set-theoretically, by their graphs:
+
+\begin{definition}
+A \textit{function} $f$ from set $X$ to set $Y$, which we denote by \[f \colon X \rightarrow Y\] is a subset of $X \times Y$ such that for every element $x \in X$, there is at most one pair $(x, y) \in f$. If $(x, y) \in f$, we write $f(x) = y$.
+\end{definition}
+
+We call the set $X$ the \textit{domain} of the function, and the set $Y$ the \textit{codomain} of the function. We reserve \textit{range} to talk about elements in the codomain which are mapped to by $f$ from some element in the domain.
+
+Note that this definition does not imply that the function is completely defined on its domain. To distinguish between functions $f \colon X \rightarrow Y$ that are completely defined on $X$ and those that aren't, we use \textit{total} and \textit{partial}:
+\begin{enumerate}
+    \item $f$ is \textit{total} if for every $x \in X$, there is some pair $(x, y) \in f$. In other words, for all $x \in X$, $f(x)$ is defined.
+    \item $f$ is \textit{partial} if it is not total, i.e. there are some elements $x \in X$ for which there is no pair $(x, y) \in f$. In other words, $f(x)$ is not defined.
+\end{enumerate}
+
+In some contexts (especially for computable functions), we write $f(x) \downarrow$ if $f(x)$ is defined and $f(x) \uparrow$ otherwise.
+
+The definitions of functions by their graph lets us conveniently define \textit{extensions} of functions:
+
+\begin{definition}
+Consider two functions $f, g \colon X \rightarrow Y$. $g$ is an \textit{extension} of $f$, denoted $f \subseteq g$, if every pair $(x, y) \in f$ is also in $g$.
+\end{definition}
+
+If $f \subseteq g$, then $g = f$ on the domain of $f$, and is potentially defined outside of the domain of $f$ as well.
+
